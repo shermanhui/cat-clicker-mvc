@@ -23,6 +23,19 @@ var viewModel = function() {
 	this.incrementCounter = function(){
 		this.clickCount(this.clickCount() + 1);
 	};
+
+	this.level = ko.computed(function(){
+		var count = this.clickCount();
+		if (count <= 10){
+			return 'new born';
+		} else if (count <= 20){
+			return 'infant';
+		} else if (count <= 30){
+			return 'teen'
+		} else {
+			return 'adult';
+		}
+	}, this);
 }
 
 ko.applyBindings(new viewModel());
