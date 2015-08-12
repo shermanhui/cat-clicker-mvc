@@ -1,11 +1,3 @@
-// var model = function(){
-// 	var self = this;
-// 	self.clickCount = ko.observable(0);
-// 	self.name = ko.observable('Tabby');
-// 	self.imgSrc = ko.observable('img/nyan-ani.gif');
-// 	self.imgAttribution = ko.observable('example');
-// };
-
 var Cat = function(){
 	var self = this;
 	self.clickCount = ko.observable(0);
