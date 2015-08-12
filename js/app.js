@@ -1,31 +1,21 @@
-// function model = {
-// 	currentCat: null,
-// 	cats: [
-// 	{
-// 		catName = "one",
-// 		clickCount = 0,
-// 		imgSrc = ""
-// 	},
-// 	{
-// 		catName = "two",
-// 		clickCount = 0,
-// 		imgSrc = ""
-// 	}
-// 	];
+// var model = function(){
+// 	var self = this;
+// 	self.clickCount = ko.observable(0);
+// 	self.name = ko.observable('Tabby');
+// 	self.imgSrc = ko.observable('img/nyan-ani.gif');
+// 	self.imgAttribution = ko.observable('example');
 // };
 
-var viewModel = function() {
-	this.clickCount = ko.observable(0);
-	this.name = ko.observable('Tabby');
-	this.imgSrc = ko.observable('img/nyan-ani.gif');
-	this.imgAttribution = ko.observable('example')
+var Cat = function(){
+	var self = this;
+	self.clickCount = ko.observable(0);
+	self.name = ko.observable('Tabby');
+	self.imgSrc = ko.observable('img/nyan-ani.gif');
+	self.imgAttribution = ko.observable('example');
+	self.nickname = ko.observableArray([{name: "bob"}, {name: "james"}, {name: "bill"}]);
 
-	this.incrementCounter = function(){
-		this.clickCount(this.clickCount() + 1);
-	};
-
-	this.level = ko.computed(function(){
-		var count = this.clickCount();
+	self.level = ko.computed(function(){
+		var count = self.clickCount();
 		if (count <= 10){
 			return 'new born';
 		} else if (count <= 20){
@@ -35,7 +25,18 @@ var viewModel = function() {
 		} else {
 			return 'adult';
 		}
-	}, this);
-}
+	});
+};
+
+
+
+var viewModel = function() {
+	var self = this;
+	self.currentCat = ko.observable(new Cat());
+
+	self.incrementCounter = function(){
+		self.currentCat().clickCount(self.currentCat().clickCount() + 1);
+	};
+};
 
 ko.applyBindings(new viewModel());

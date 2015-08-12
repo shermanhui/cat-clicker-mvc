@@ -7,16 +7,15 @@
 	</head>
 	<body>
 		<div>
-			<h2 data-bind="text: name"></h2>
-			<div><strong data-bind="text: level"></strong></div>
-			<div data-bind="text: clickCount"></div>
-			<img src="" alt="cat img" data-bind="click: incrementCounter, attr: {src: imgSrc}">
+			<h2 data-bind="text: currentCat().name"></h2>
+			<div><strong data-bind="text: currentCat().level"></strong></div>
+			<div data-bind="text: currentCat().clickCount"></div>
+			<img src="" alt="cat currentCat().img" data-bind="click: incrementCounter, attr: {src: currentCat().imgSrc}">
 		</div>
 		<div>
-			<ul>
-				<li>
-					
-				</li>
+			<h2>Nicknames</h2>
+			<ul data-bind="foreach: currentCat().nickname">
+				<li data-bind="text: name"></li>
 			</ul>
 		</div>
 		<script type="text/javascript" src='bower_components/knockout/dist/knockout.js'></script>
