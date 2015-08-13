@@ -1,10 +1,47 @@
-var Cat = function(){
+var catData = [
+	{
+		clickCount: 0,
+		name: "Tabby",
+		imgSrc: 'img/nyan-ani.gif',
+		imgAttribution: 'example',
+		nickname: [{name: "bob"}, {name: "james"}, {name: "bill"}]
+	},
+	{
+		clickCount: 0,
+		name: "Bobby",
+		imgSrc: 'img/nyan-ani.gif',
+		imgAttribution: 'example',
+		nickname: [{name: "blah"}]
+	},
+	{
+		clickCount: 0,
+		name: "Sammy",
+		imgSrc: 'img/nyan-ani.gif',
+		imgAttribution: 'example',
+		nickname: [{name: "Cat"}]
+	},
+	{
+		clickCount: 0,
+		name: "Abby",
+		imgSrc: 'img/nyan-ani.gif',
+		imgAttribution: 'example',
+		nickname: [{name: 'Abs'}]
+	},
+	{
+		clickCount: 0,
+		name: "Blabby",
+		imgSrc: 'img/nyan-ani.gif',
+		imgAttribution: 'example'
+	},
+];
+
+var Cat = function(data){
 	var self = this;
-	self.clickCount = ko.observable(0);
-	self.name = ko.observable('Tabby');
-	self.imgSrc = ko.observable('img/nyan-ani.gif');
-	self.imgAttribution = ko.observable('example');
-	self.nickname = ko.observableArray([{name: "bob"}, {name: "james"}, {name: "bill"}]);
+	self.clickCount = ko.observable(data.clickCount);
+	self.name = ko.observable(data.name);
+	self.imgSrc = ko.observable(data.imgSrc);
+	self.imgAttribution = ko.observable(data.imgAttribution);
+	self.nickname = ko.observableArray(data.nickname);
 
 	self.level = ko.computed(function(){
 		var count = self.clickCount();
@@ -13,20 +50,25 @@ var Cat = function(){
 		} else if (count <= 20){
 			return 'infant';
 		} else if (count <= 30){
-			return 'teen'
+			return 'teen';
 		} else {
 			return 'adult';
 		}
 	});
 };
 
-
-
 var viewModel = function() {
 	var self = this;
-	self.currentCat = ko.observable(new Cat());
 
-	self.incrementCounter = function(){
+	this.catList = ko.observableArray([]);
+
+	catData.forEach(function(catItem){
+		self.catList.push(new Cat(catItem));
+	});
+
+	this.currentCat = ko.observable(this.catList()[0]);
+
+	this.incrementCounter = function(){
 		self.currentCat().clickCount(self.currentCat().clickCount() + 1);
 	};
 };
